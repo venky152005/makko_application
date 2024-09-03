@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Text('Photos'),
               Text('Videos'),
               Text('Post'),
-              Icon(Icons.filter_2_outlined),
+              Icon(Icons.line_style_outlined),
 
             ],
           ),
