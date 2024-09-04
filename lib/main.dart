@@ -91,12 +91,16 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: [BottomNavigationBarItem(icon:Image.asset('icons/filterIcon.png',
-        height: 20,width: 20,),
-        label: 'home'),
-        BottomNavigationBarItem(icon: Image.asset('icons/filterIcon.png',
-        height: 20,width: 20,),
-        label: 'back'),],),
+        items: [BottomNavigationBarItem(icon:Image.asset('icons/homeIcon.png',
+        height: 30,width: 30,),label:''),
+        BottomNavigationBarItem(icon: Image.asset('icons/searchIcon.png',
+        height: 30,width: 30,),label: ''),
+        BottomNavigationBarItem(icon: Image.asset('icons/plusIcon.png',
+        height: 40,width: 40,),label: ''),
+        BottomNavigationBarItem(icon: Image.asset('icons/messageIcon.png',
+        height: 30,width: 30,),label: ''),
+        BottomNavigationBarItem(icon: Image.asset('icons/profileIcon.png',
+        height: 30,width: 30,),label: ''),],),
     );
   }
 }
