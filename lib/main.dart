@@ -65,14 +65,18 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: const Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text('All'),
-              Text('Photos'),
-              Text('Videos'),
-              Text('Post'),
-              Icon(Icons.line_style_outlined),
+              const Text('All'),
+              const Text('Photos'),
+              const Text('Videos'),
+              const Text('Post'),
+              SizedBox(
+                height: 20,
+                width: 20,
+                child: Image.asset('icons/filterIcon.png'),
+              )
 
             ],
           ),
@@ -86,6 +90,13 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [BottomNavigationBarItem(icon:Image.asset('icons/filterIcon.png',
+        height: 20,width: 20,),
+        label: 'home'),
+        BottomNavigationBarItem(icon: Image.asset('icons/filterIcon.png',
+        height: 20,width: 20,),
+        label: 'back'),],),
     );
   }
 }
