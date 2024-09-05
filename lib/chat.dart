@@ -60,14 +60,52 @@ class photos extends StatelessWidget {
     return Scaffold(
       body:GridView.builder(gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 1),
-        itemCount: 5,
+        itemCount: 4,
+        padding: const EdgeInsets.all(8.0),
+         itemBuilder: (context, index)=>ClipRRect(
+          borderRadius: BorderRadius.circular(15.0),
+          child: Image.asset('photos/photo${index+1}''.jpg',
+          height: 600,
+          width: 300,
+          fit:BoxFit.cover,),
+         ),),
+    );
+  }
+}
+
+class posts extends StatelessWidget {
+  const posts({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body:GridView.builder(gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 1),
+        itemCount: 4,
          itemBuilder: (context, index)=>ClipRRect(
           borderRadius: BorderRadius.circular(15),
           child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Image.asset('photos/naruto.jpg'),
+            padding: const EdgeInsets.all(0),
+            child: container(),
           ),
          ))
+    );
+  }
+}
+
+class container extends StatelessWidget {
+  const container({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.0)),
+        child: Image.asset('photos/photo1.jpg',
+        height: 600,
+        width: 300,
+        fit: BoxFit.cover,),
+      ),
     );
   }
 }

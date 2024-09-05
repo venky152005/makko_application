@@ -82,15 +82,18 @@ class _MyHomePageState extends State<MyHomePage> {
                  width: 25,),)
             ],),
           ),
-          Expanded(child: TabBarView(children: [
-            const Padding(
+          const Expanded(child: TabBarView(children: [
+            Padding(
               padding: EdgeInsets.all(8.0),
               child: grid(),
             ),
-            Container(
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
+            Padding(
+              padding: EdgeInsets.all(10.0),
               child: photos(),
-            )
+            ),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: posts(),)
           ]))
       
           ],
