@@ -40,11 +40,34 @@ class _MyHomePageState extends State<MyHomePage> {
       body: MasonryGridView.builder(
         itemCount: 6,
         gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-       itemBuilder:(context, index)=> Padding(
-         padding: const EdgeInsets.all(10.0),
-         child:Image.asset('images/images${index+1}''.jpg',),
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+       itemBuilder:(context, index)=> ClipRRect(
+        borderRadius: BorderRadius.circular(15.0),
+           child:Image.asset('images/images${index+1}''.jpg',),
        ),
        ),  
        );
+  }
+}
+
+
+class photos extends StatelessWidget {
+  const photos({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body:GridView.builder(gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 1),
+        itemCount: 5,
+         itemBuilder: (context, index)=>ClipRRect(
+          borderRadius: BorderRadius.circular(15),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Image.asset('photos/naruto.jpg'),
+          ),
+         ))
+    );
   }
 }

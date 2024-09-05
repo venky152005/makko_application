@@ -42,65 +42,73 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal:15.0),
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                 Text('makko',
-                 style:TextStyle(
-                  fontSize: 60,
-                  fontFamily:'HMSGilbertScript',
-                 ), ),
-                 Icon(Icons.notifications_active_outlined)
-              ],
+    return DefaultTabController(
+      length: 5,
+      child: Scaffold(
+        body: SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal:15.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                   const Text('makko',
+                   style:TextStyle(
+                    fontSize: 60,
+                    fontFamily:'HMSGilbertScript',
+                   ), ),
+                   Image.asset('icons/bellnotificationredIcon.png',
+                   height: 40,
+                   width: 40,)
+                ],
+              ),
             ),
-          ),
-        const SizedBox(
-          height: 25,
-        ),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const Text('All'),
-              const Text('Photos'),
-              const Text('Videos'),
-              const Text('Post'),
-              SizedBox(
-                height: 20,
-                width: 20,
-                child: Image.asset('icons/filterIcon.png'),
-              )
 
-            ],
+          Container(
+            child: TabBar(
+              labelPadding: const EdgeInsets.all(0),
+              tabs: [
+              const Tab(child: Text('All'),),
+               const Tab(child: Text('Photos'),),
+                const Tab(child: Text('Videos'),),
+                 const Tab(child: Text('Posts'),),
+                 const SizedBox(
+                  width: 50,
+                 ),
+                 Tab(child: Image.asset('icons/filterIcon.png',
+                 height: 25,
+                 width: 25,),)
+            ],),
           ),
-        ),
-        const SizedBox(
-          height: 20,
-        ),       
-           const Expanded(
-            child: grid()
+          Expanded(child: TabBarView(children: [
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: grid(),
+            ),
+            Container(
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
+              child: photos(),
             )
-        ],
+          ]))
+      
+          ],
+        ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: [BottomNavigationBarItem(icon:Image.asset('icons/homeIcon.png',
+          height: 30,width: 30,),label:''),
+          BottomNavigationBarItem(icon: Image.asset('icons/searchIcon.png',
+          height: 30,width: 30,),label: ''),
+          BottomNavigationBarItem(icon: Image.asset('icons/plusIcon.png',
+          height: 40,width: 40,),label: ''),
+          BottomNavigationBarItem(icon: Image.asset('icons/messageIcon.png',
+          height: 30,width: 30,),label: ''),
+          BottomNavigationBarItem(icon: Image.asset('icons/profileIcon.png',
+          height: 30,width: 30,),label: ''),],),
       ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [BottomNavigationBarItem(icon:Image.asset('icons/homeIcon.png',
-        height: 30,width: 30,),label:''),
-        BottomNavigationBarItem(icon: Image.asset('icons/searchIcon.png',
-        height: 30,width: 30,),label: ''),
-        BottomNavigationBarItem(icon: Image.asset('icons/plusIcon.png',
-        height: 40,width: 40,),label: ''),
-        BottomNavigationBarItem(icon: Image.asset('icons/messageIcon.png',
-        height: 30,width: 30,),label: ''),
-        BottomNavigationBarItem(icon: Image.asset('icons/profileIcon.png',
-        height: 30,width: 30,),label: ''),],),
     );
   }
 }
+
