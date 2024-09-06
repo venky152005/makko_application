@@ -89,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Padding(
               padding: EdgeInsets.all(10.0),
-              child: photos(),
+              child: positioned()
             ),
             Padding(
               padding: EdgeInsets.all(8.0),
