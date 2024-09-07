@@ -119,22 +119,29 @@ class positioned extends StatelessWidget {
                           ),
                           child: Container(
                             padding: const EdgeInsets.all(4.0),
-                            width: 100,
-                            child: const Row(
+                            width: 170,
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                            Image(image: AssetImage('icons/likeIcon.png'),
+                            IconButton(onPressed:(){
+                             
+                            },icon: const Image(image: AssetImage('icons/likeIcon.png'),
                             height: 25,
                             width: 25,
-                            color: Colors.white,),
-                            Image(image: AssetImage('icons/messageIcon.png'),
+                            color: Colors.white,), ),
+                            IconButton(onPressed: (){
+
+                            }, 
+                            icon: const Image(image: AssetImage('icons/messageIcon.png'),
                             height: 25,
                             width: 25,
-                            color: Colors.white,),
-                            Image(image: AssetImage('icons/shareIcon.png'),
+                            color: Colors.white,),),
+                            IconButton(onPressed: (){
+
+                            }, icon: const Image(image: AssetImage('icons/shareIcon.png'),
                             height: 25,
                             width: 25,
-                            color: Colors.white,),
+                            color: Colors.white,), ),
                             ],
                             ),
                           ),
@@ -145,18 +152,21 @@ class positioned extends StatelessWidget {
                       bottom: 20,
                       left: 20,
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(25),
+                        borderRadius: BorderRadius.circular(25.0),
                         child: BackdropFilter(
                           filter: ImageFilter.blur(
-                            sigmaX: 100.0,
-                            sigmaY: 100.0,
+                            sigmaX: 50.0,
+                            sigmaY: 50.0,
                           ),
-                          child: Container(
-                            padding: const EdgeInsets.all(4.0),
-                            child: const Image(image: AssetImage('icons/soundIcon.png',),
+                          child: CircleAvatar(
+                            radius: 25,
+                           child: IconButton(onPressed: (){
+
+                           },
+                            icon:  const Image(image: AssetImage('icons/soundIcon.png',),
                             color: Colors.white,
                             height: 20,
-                            width: 20,),
+                            width: 20,),),    
                           ),
                         ),
                       ),
