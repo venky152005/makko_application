@@ -77,23 +77,36 @@ class _MyHomePageState extends State<MyHomePage> {
                  const SizedBox(
                   width: 50,
                  ),
-                 Tab(child: Image.asset('icons/filterIcon.png',
-                 height: 25,
-                 width: 25,),)
+                 Tab(icon:IconButton(
+                  onPressed: (){
+                   const Drawer(
+                    elevation: 16.0,
+                    child: Column(
+                      children: [
+                        Text('Filter')
+                      ],
+                    ),
+                   );
+                 },
+                  icon: Image.asset('icons/filterIcon.png',
+                   height: 25,
+                   width: 25,),)),
             ],),
           ),
-          const Expanded(child: TabBarView(children: [
+         Expanded(child: TabBarView(children: [
             Padding(
-              padding: EdgeInsets.all(8.0),
-              child: grid(),
+              padding: const EdgeInsets.all(8.0),
+              child: Grid(),
             ),
             Padding(
-              padding: EdgeInsets.all(10.0),
-              child: positioned()
+              padding: const EdgeInsets.all(10.0),
+             child:Photos(),
             ),
-            Padding(
+             const VWidget(),
+            const Padding(
               padding: EdgeInsets.all(8.0),
-              child: posts(),)
+              child: Posts(),),
+              const FilterWidget()
           ]))
       
           ],
