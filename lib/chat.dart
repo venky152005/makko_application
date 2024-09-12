@@ -9,21 +9,37 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:video_player/video_player.dart';
 
 class Grid extends StatelessWidget {
-  final List<String> images = [
-    'All/all1.jpg',
-    'All/all2.png',
-    'All/all3.jpg',
-    'All/all4.jpg',
-    'All/all5.png',
-    'All/all6.jpg',
-    'All/all7.jpg',
-    'All/all8.png',
-    'All/all9.jpg',
-    'All/all10.jpg',
-    'All/all11.png',
-    'All/all12.jpg',
-    'All/all13.jpg',
-    'All/all14.jpg',
+  List<Map<String, String>> jsonString = [
+    {"file": 'All/all1.jpg', "type": "image"},
+    {"file": "All/all2.png", "type": "image"},
+    {
+      "file": "https://cdn.pixabay.com/video/2024/04/19/208630_large.mp4",
+      "type": "video"
+    },
+    {"file": "All/all3.jpg", "type": "image"},
+    {"file": "All/all4.jpg", "type": "image"},
+    {"file": "All/all5.png", "type": "image"},
+    {
+      "file": "https://cdn.pixabay.com/video/2024/07/28/223551_large.mp4",
+      "type": "video"
+    },
+    {"file": "All/all6.jpg", "type": "image"},
+    {"file": "All/all7.jpg", "type": "image"},
+    {"file": "All/all8.png", "type": "image"},
+    {
+      "file": "https://cdn.pixabay.com/video/2024/05/31/214732_large.mp4",
+      "type": "video"
+    },
+    {"file": "All/all9.jpg", "type": "image"},
+    {"file": "All/all10.jpg", "type": "image"},
+    {"file": "All/all11.png", "type": "image"},
+    {
+      "file": "https://cdn.pixabay.com/video/2024/07/26/223253_large.mp4",
+      "type": "video"
+    },
+    {"file": "All/all12.jpg", "type": "image"},
+    {"file": "All/all13.jpg", "type": "image"},
+    {"file": "All/all14.jpg", "type": "image"},
   ];
 
   Grid({super.key});
@@ -32,15 +48,117 @@ class Grid extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: MasonryGridView.builder(
-          itemCount: images.length,
+          itemCount: jsonString.length,
           gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2),
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
-          itemBuilder: (context, index) => ClipRRect(
-                borderRadius: BorderRadius.circular(15.0),
-                child: Image.asset(images[index]), //images[0]
-              )),
+          itemBuilder: (context, index) {
+            var allclip = jsonString[index];
+            return allclip['type'] == 'image'
+                ? ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Image.asset(
+                      allclip['file']!,
+                      fit: BoxFit.cover,
+                    ),
+                  )
+                : VideoWidget(
+                    VideoURL: allclip['file']!,
+                  );
+          }),
+    );
+  }
+}
+
+class VideoWidget extends StatefulWidget {
+  final String VideoURL;
+
+  const VideoWidget({
+    super.key,
+    required this.VideoURL,
+  });
+
+  @override
+  State<VideoWidget> createState() => _VideoWidgetState();
+}
+
+class _VideoWidgetState extends State<VideoWidget> {
+  late VideoPlayerController _controller;
+  late Future _initializeVideoPlayerFuture;
+
+  bool isLiked = false;
+
+  @override
+  void initState() {
+    _controller = VideoPlayerController.networkUrl(
+      Uri.parse(widget.VideoURL),
+    );
+    _initializeVideoPlayerFuture = _controller.initialize();
+    _controller.setLooping(true);
+    _controller.play();
+    _controller.setVolume(1.0);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(4),
+        child: Stack(
+          children: [
+            FutureBuilder(
+                future: _initializeVideoPlayerFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return Container(
+                      // Adds margin around the video
+                      child: ClipRRect(
+                        borderRadius:
+                            BorderRadius.circular(30), // Border radius
+                        child: AspectRatio(
+                            aspectRatio: 9 / 16,
+                            child: VideoPlayer(_controller)),
+                      ),
+                    );
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                }),
+            Positioned(
+              bottom: 20,
+              left: 30,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(25),
+                child: CircleAvatar(
+                  backgroundColor: Colors.transparent,
+                  radius: 25,
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: const Image(
+                      image: AssetImage(
+                        'icons/soundIcon.png',
+                      ),
+                      color: Colors.white,
+                      height: 20,
+                      width: 20,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
