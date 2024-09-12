@@ -70,36 +70,34 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
-              Container(
-                child: TabBar(
-                  labelPadding: const EdgeInsets.all(0),
-                  tabs: [
-                    const Tab(
-                      child: Text('All'),
+              TabBar(
+                labelPadding: const EdgeInsets.all(0),
+                tabs: [
+                  const Tab(
+                    child: Text('All'),
+                  ),
+                  const Tab(
+                    child: Text('Photos'),
+                  ),
+                  const Tab(
+                    child: Text('Videos'),
+                  ),
+                  const Tab(
+                    child: Text('Posts'),
+                  ),
+                  const SizedBox(
+                    width: 50,
+                  ),
+                  Tab(
+                      icon: IconButton(
+                    onPressed: () => showBottomSheet(context),
+                    icon: Image.asset(
+                      'icons/filterIcon.png',
+                      height: 25,
+                      width: 25,
                     ),
-                    const Tab(
-                      child: Text('Photos'),
-                    ),
-                    const Tab(
-                      child: Text('Videos'),
-                    ),
-                    const Tab(
-                      child: Text('Posts'),
-                    ),
-                    const SizedBox(
-                      width: 50,
-                    ),
-                    Tab(
-                        icon: IconButton(
-                      onPressed: () => showBottomSheet(context),
-                      icon: Image.asset(
-                        'icons/filterIcon.png',
-                        height: 25,
-                        width: 25,
-                      ),
-                    )),
-                  ],
-                ),
+                  )),
+                ],
               ),
               Expanded(
                   child: TabBarView(children: [
@@ -111,12 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.all(10.0),
                   child: Photos(),
                 ),
-                const SingleChildScrollView(
-                  child: VWidget(
-                    link:
-                        'https://cdn.pixabay.com/video/2024/04/19/208630_large.mp4',
-                  ),
-                ),
+                VideosScreen(),
                 const Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Posts(),
@@ -169,6 +162,41 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+class VideosScreen extends StatelessWidget {
+  VideosScreen({
+    super.key,
+  });
+
+  List<Map<String, String>> allVideos = [
+    {
+      "file": "https://cdn.pixabay.com/video/2024/04/19/208630_large.mp4",
+      "type": "video"
+    },
+    {
+      "file": "https://cdn.pixabay.com/video/2024/07/28/223551_large.mp4",
+      "type": "video"
+    },
+    {
+      "file": "https://cdn.pixabay.com/video/2024/05/31/214732_large.mp4",
+      "type": "video"
+    },
+    {
+      "file": "https://cdn.pixabay.com/video/2024/07/26/223253_large.mp4",
+      "type": "video"
+    },
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: allVideos.length,
+      itemBuilder: (context, index) {
+        return VideoPlayerWidget(link: allVideos[index]['file'] ?? '');
+      },
+    );
+  }
+}
+
 void showBottomSheet(BuildContext context) {
   showModalBottomSheet<void>(
     useRootNavigator: true,
@@ -182,10 +210,10 @@ void showBottomSheet(BuildContext context) {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Text('CHOOSETOPIC'),
+                Text('CHOOSE TOPIC'),
               ],
             ),
             const SizedBox(
