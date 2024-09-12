@@ -24,7 +24,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: '',),
+      home: const MyHomePage(
+        title: '',
+      ),
     );
   }
 }
@@ -39,7 +41,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -48,83 +49,201 @@ class _MyHomePageState extends State<MyHomePage> {
         body: SafeArea(
           child: Column(
             mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal:15.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                   const Text('makko',
-                   style:TextStyle(
-                    fontSize: 60,
-                    fontFamily:'HMSGilbertScript',
-                   ), ),
-                   Image.asset('icons/bellnotificationredIcon.png',
-                   height: 40,
-                   width: 40,)
-                ],
-              ),
-            ),
-
-          Container(
-            child: TabBar(
-              labelPadding: const EdgeInsets.all(0),
-              tabs: [
-              const Tab(child: Text('All'),),
-               const Tab(child: Text('Photos'),),
-                const Tab(child: Text('Videos'),),
-                 const Tab(child: Text('Posts'),),
-                 const SizedBox(
-                  width: 50,
-                 ),
-                 Tab(icon:IconButton(
-                  onPressed: (){
-                   const Drawer(
-                    elevation: 16.0,
-                    child: Column(
-                      children: [
-                        Text('Filter')
-                      ],
+            children: [
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'makko',
+                      style: TextStyle(
+                        fontSize: 60,
+                        fontFamily: 'HMSGilbertScript',
+                      ),
                     ),
-                   );
-                 },
-                  icon: Image.asset('icons/filterIcon.png',
-                   height: 25,
-                   width: 25,),)),
-            ],),
+                    Image.asset(
+                      'icons/bellnotificationredIcon.png',
+                      height: 40,
+                      width: 40,
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                child: TabBar(
+                  labelPadding: const EdgeInsets.all(0),
+                  tabs: [
+                    const Tab(
+                      child: Text('All'),
+                    ),
+                    const Tab(
+                      child: Text('Photos'),
+                    ),
+                    const Tab(
+                      child: Text('Videos'),
+                    ),
+                    const Tab(
+                      child: Text('Posts'),
+                    ),
+                    const SizedBox(
+                      width: 50,
+                    ),
+                    Tab(
+                        icon: IconButton(
+                      onPressed: () => showBottomSheet(context),
+                      icon: Image.asset(
+                        'icons/filterIcon.png',
+                        height: 25,
+                        width: 25,
+                      ),
+                    )),
+                  ],
+                ),
+              ),
+              Expanded(
+                  child: TabBarView(children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Grid(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Photos(),
+                ),
+                const SingleChildScrollView(
+                  child: VWidget(
+                    link:
+                        'https://cdn.pixabay.com/video/2024/04/19/208630_large.mp4',
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Posts(),
+                ),
+              ]))
+            ],
           ),
-         Expanded(child: TabBarView(children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Grid(),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-             child:Photos(),
-            ),
-             const VWidget(),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Posts(),),
-              const FilterWidget()
-          ]))
-      
-          ],
-        ),
         ),
         bottomNavigationBar: BottomNavigationBar(
-          items: [BottomNavigationBarItem(icon:Image.asset('icons/homeIcon.png',
-          height: 30,width: 30,),label:''),
-          BottomNavigationBarItem(icon: Image.asset('icons/searchIcon.png',
-          height: 30,width: 30,),label: ''),
-          BottomNavigationBarItem(icon: Image.asset('icons/plusIcon.png',
-          height: 40,width: 40,),label: ''),
-          BottomNavigationBarItem(icon: Image.asset('icons/messageIcon.png',
-          height: 30,width: 30,),label: ''),
-          BottomNavigationBarItem(icon: Image.asset('icons/profileIcon.png',
-          height: 30,width: 30,),label: ''),],),
+          items: [
+            BottomNavigationBarItem(
+                icon: Image.asset(
+                  'icons/homeIcon.png',
+                  height: 30,
+                  width: 30,
+                ),
+                label: ''),
+            BottomNavigationBarItem(
+                icon: Image.asset(
+                  'icons/searchIcon.png',
+                  height: 30,
+                  width: 30,
+                ),
+                label: ''),
+            BottomNavigationBarItem(
+                icon: Image.asset(
+                  'icons/plusIcon.png',
+                  height: 40,
+                  width: 40,
+                ),
+                label: ''),
+            BottomNavigationBarItem(
+                icon: Image.asset(
+                  'icons/messageIcon.png',
+                  height: 30,
+                  width: 30,
+                ),
+                label: ''),
+            BottomNavigationBarItem(
+                icon: Image.asset(
+                  'icons/profileIcon.png',
+                  height: 30,
+                  width: 30,
+                ),
+                label: ''),
+          ],
+        ),
       ),
     );
   }
 }
 
+void showBottomSheet(BuildContext context) {
+  showModalBottomSheet<void>(
+    useRootNavigator: true,
+    isScrollControlled: true,
+    isDismissible: true,
+    enableDrag: true,
+    context: context,
+    builder: (context) {
+      return Container(
+        margin: const EdgeInsets.all(20.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const Text('CHOOSETOPIC'),
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            ListTile(
+              title: const Text('Technology and Innovation'),
+              leading: Image.asset('filters/technology.jpg'),
+              onTap: () => Navigator.pop(context),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            ListTile(
+              title: const Text('Arts and Creativity'),
+              leading: Image.asset('filters/art.jpg'),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            ListTile(
+              title: const Text('Fitness and Health'),
+              leading: Image.asset('filters/fitness.jpg'),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            ListTile(
+              title: const Text('Science and Nature'),
+              leading: Image.asset('filters/science.jpg'),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            ListTile(
+              title: const Text('Travel and Adventure'),
+              leading: Image.asset('filters/travel.jpg'),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            ListTile(
+              title: const Text('Culinary and Food'),
+              leading: Image.asset('filters/food.jpg'),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            ListTile(
+              title: const Text('Pets and Animals'),
+              leading: Image.asset('filters/pets.jpg'),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
